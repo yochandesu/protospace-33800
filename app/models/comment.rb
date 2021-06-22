@@ -1,7 +1,7 @@
 class Comment < ApplicationRecord
 
   belongs_to :user
-  has_many :prototypes
+  belongs_to :prototype
 
 validates :comment, presence: true
 

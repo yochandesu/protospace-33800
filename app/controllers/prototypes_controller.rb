@@ -1,13 +1,8 @@
 class PrototypesController < ApplicationController
  
   before_action :authenticate_user!, only: [:new, :edit, :destroy]
-  before_action :move_to_index, except: [:index]
+  before_action :move_to_index, except: [:index, :show]
 
-  def move_to_index
-    unless user_signed_in?
-      redirect_to action: :index
-    end
-  end
 
 def edit
 @prototype = Prototype.find(params[:id])
@@ -25,7 +20,7 @@ end
 def update 
   @prototype = Prototype.find(params[:id])
 if  @prototype.update(protospace_params)
-  redirect_to root_path
+  redirect_to edit
 else
   render :edit
 end
@@ -62,6 +57,12 @@ private
 def protospace_params
   params.require(:prototype).permit(:title, :image, :catch_copy, :concept).merge(user_id: current_user.id)
 
+end
+
+def move_to_index
+  if user_signed_in?
+    redirect_to action: :index
+  end
 end
 
 end
