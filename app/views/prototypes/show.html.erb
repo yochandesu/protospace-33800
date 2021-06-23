@@ -7,11 +7,12 @@
       <%= link_to "by#{@prototype.user.name}" , user_path(@prototype.user.id), class: :prototype__user %>
       <%# プロトタイプの投稿者とログインしているユーザーが同じであれば以下を表示する %>
         <div class="prototype__manage">
-         <%# <% if user_signed_in? && current_user.id %>
-         <% if current_user.id == @prototype.user_id %>
-         <%# if ログインしているユーザーのID == プロトタイプを投稿したユーザーのID %>
-          <%= link_to "編集する", edit_prototype_path(@prototype.id), class: :prototype__btn %>
-          <%= link_to "削除する", prototype_path(@prototype.id), method: :delete ,class: :prototype__btn %>
+         <% if user_signed_in? %>
+          <% if current_user.id == @prototype.user_id %>
+          <%# if ログインしているユーザーのID == プロトタイプを投稿したユーザーのID %>
+            <%= link_to "編集する", edit_prototype_path(@prototype.id), class: :prototype__btn %>
+            <%= link_to "削除する", prototype_path(@prototype.id), method: :delete ,class: :prototype__btn %>
+          <% end %>
          <% end %>
         </div>
       <%# // プロトタイプの投稿者とログインしているユーザーが同じであれば上記を表示する %>
